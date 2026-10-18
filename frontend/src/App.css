@@ -1,0 +1,621 @@
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f6fa;
+  color: #202938;
+}
+
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 225px;
+  flex-shrink: 0;
+  background: #172033;
+  color: white;
+  padding: 28px 18px;
+}
+
+.sidebar h2 {
+  margin: 0 0 35px;
+  font-size: 21px;
+}
+
+.nav {
+  padding: 12px;
+  color: #c5ccda;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.nav.active {
+  background: #30405b;
+  color: white;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  padding: 35px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+header h1 {
+  margin: 0 0 8px;
+  font-size: 27px;
+}
+
+header p,
+.stat-card p {
+  color: #697386;
+}
+
+button {
+  background: #3157d5;
+  color: white;
+  border: none;
+  border-radius: 7px;
+  padding: 12px 17px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:hover {
+  background: #2546b8;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.stat-card,
+.table-card {
+  background: white;
+  border: 1px solid #e4e8ef;
+  border-radius: 10px;
+  padding: 22px;
+}
+
+.stat-card p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.stat-card h2 {
+  margin: 14px 0 0;
+  font-size: 30px;
+}
+
+.table-card h2 {
+  font-size: 19px;
+  margin: 0 0 22px;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 14px;
+}
+
+th,
+td {
+  padding: 15px 12px;
+  border-bottom: 1px solid #edf0f5;
+  white-space: nowrap;
+}
+
+th {
+  color: #697386;
+  font-weight: 600;
+}
+
+.status {
+  display: inline-block;
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.status.active {
+  color: #187647;
+  background: #dcfce7;
+}
+
+.status.deprecated {
+  color: #9a6700;
+  background: #fff1c2;
+}
+
+@media (max-width: 750px) {
+  .sidebar {
+    width: 150px;
+    padding: 20px 10px;
+  }
+
+  .main {
+    padding: 20px;
+  }
+
+  header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 110px;
+    font-size: 12px;
+  }
+
+  .sidebar h2 {
+    font-size: 16px;
+  }
+}
+
+
+
+.action-button {
+  padding: 7px 12px;
+  border: 1px solid #d97706;
+  border-radius: 5px;
+  background: #fff7ed;
+  color: #9a3412;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.action-button:hover:not(:disabled) {
+  background: #ffedd5;
+}
+
+.action-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.error-message {
+  padding: 10px 14px;
+  border-radius: 6px;
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+.no-action {
+  color: #9ca3af;
+}
+
+
+/* Consumer Management - additional styling only */
+
+.table-card.consumer-section {
+  border-top: 4px solid #6478d9;
+  background: linear-gradient(180deg, #f5f6ff 0%, #ffffff 180px);
+}
+
+.table-card.consumer-section h2 {
+  color: #3446a5;
+  margin-bottom: 12px;
+}
+
+.table-card.consumer-section h3 {
+  color: #4554a0;
+  margin-top: 22px;
+  margin-bottom: 14px;
+}
+
+.table-card.consumer-section > p {
+  color: #5b6478;
+  line-height: 1.6;
+}
+
+.table-card.consumer-section .consumer-form {
+  background: #f0f3ff;
+  border: 1px solid #d6ddff;
+  border-radius: 10px;
+  padding: 18px;
+  margin: 16px 0 22px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.table-card.consumer-section input,
+.table-card.consumer-section select {
+  min-width: 180px;
+  padding: 11px 12px;
+  border: 1px solid #c5cfee;
+  border-radius: 7px;
+  background: #fff;
+  color: #202938;
+  font-size: 14px;
+}
+
+.table-card.consumer-section input:focus,
+.table-card.consumer-section select:focus {
+  outline: 2px solid #a5b4fc;
+  border-color: #6478d9;
+}
+
+.table-card.consumer-section button:not(.action-button) {
+  background: #596bd0;
+}
+
+.table-card.consumer-section button:not(.action-button):hover:not(:disabled) {
+  background: #4355b5;
+}
+
+.table-card.consumer-section th {
+  background: #eef0ff;
+  color: #4554a0;
+}
+
+.table-card.consumer-section tbody tr:hover {
+  background: #f5f6ff;
+}
+
+.table-card.consumer-section .api-key-result {
+  background: #eefbf5;
+  border: 1px solid #b8e8d0;
+  border-left: 4px solid #22966b;
+  border-radius: 9px;
+  padding: 16px;
+  margin: 16px 0;
+  overflow-wrap: anywhere;
+}
+
+.table-card.consumer-section .api-key-result h3 {
+  color: #176b4b;
+  margin-top: 0;
+}
+
+.table-card.consumer-section ul {
+  background: #f4f0ff;
+  border: 1px solid #e1d7ff;
+  border-radius: 8px;
+  padding: 16px 16px 16px 36px;
+  line-height: 1.9;
+  color: #433879;
+}
+
+@media (max-width: 600px) {
+  .table-card.consumer-section .consumer-form {
+    padding: 12px;
+  }
+
+  .table-card.consumer-section input,
+  .table-card.consumer-section select {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+/* Test Runtime API - visual styling */
+
+.table-card.runtime-section {
+  border-top: 4px solid #159b91;
+  background: linear-gradient(180deg, #f0fdfa 0%, #ffffff 180px);
+}
+
+.table-card.runtime-section h2 {
+  color: #126e68;
+  margin-bottom: 12px;
+}
+
+.table-card.runtime-section > p {
+  color: #526b6b;
+  line-height: 1.6;
+}
+
+.table-card.runtime-section .consumer-form {
+  background: #e8f8f5;
+  border: 1px solid #bce8df;
+  border-radius: 10px;
+  padding: 18px;
+  margin: 16px 0 22px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.table-card.runtime-section input,
+.table-card.runtime-section select {
+  min-width: 180px;
+  padding: 11px 12px;
+  border: 1px solid #b7dcd6;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #202938;
+  font-size: 14px;
+}
+
+.table-card.runtime-section input:focus,
+.table-card.runtime-section select:focus {
+  outline: 2px solid #99ded2;
+  border-color: #159b91;
+}
+
+.table-card.runtime-section .consumer-form button {
+  background: #16877f;
+}
+
+.table-card.runtime-section .consumer-form button:hover:not(:disabled) {
+  background: #106b65;
+}
+
+.table-card.runtime-section .api-key-result {
+  background: #f0fdfa;
+  border: 1px solid #bce8df;
+  border-left: 4px solid #159b91;
+  border-radius: 9px;
+  padding: 18px;
+  margin-top: 18px;
+  overflow-wrap: anywhere;
+}
+
+.table-card.runtime-section .api-key-result h3 {
+  color: #126e68;
+  margin-top: 10px;
+}
+
+.table-card.runtime-section .runtime-response {
+  margin: 12px 0 0;
+  padding: 16px;
+  border: 1px solid #cde7e2;
+  border-radius: 8px;
+  background: #e8f8f5;
+  color: #234e4a;
+  font-size: 13px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  overflow-x: auto;
+}
+
+@media (max-width: 600px) {
+  .table-card.runtime-section .consumer-form {
+    padding: 12px;
+  }
+
+  .table-card.runtime-section input,
+  .table-card.runtime-section select {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+/* Fix text visibility in dashboard number cards */
+.stat-card h2 {
+  color: #111827;
+}
+
+/* Make Usage Report text visible on white backgrounds */
+.table-card h2,
+.table-card h3,
+.table-card p,
+.table-card strong,
+.table-card li {
+  color: #111827;
+}
+
+/* Keep secondary descriptive text readable */
+.stat-card p,
+header p {
+  color: #4b5563;
+}
+
+/* Ensure usage report numbers are black */
+.table-card .stats .stat-card h2 {
+  color: #111827;
+}
+
+
+/* Usage Report Styling */
+
+.table-card.usage-report {
+  border-top: 4px solid #3157d5;
+  background: linear-gradient(180deg, #f3f6ff 0%, #ffffff 180px);
+  margin-top: 24px;
+}
+
+.table-card.usage-report h2 {
+  color: #1e3a8a;
+  margin-bottom: 22px;
+}
+
+.table-card.usage-report h3 {
+  color: #1f2937;
+  margin-top: 24px;
+  margin-bottom: 12px;
+}
+
+.table-card.usage-report p,
+.table-card.usage-report li,
+.table-card.usage-report strong {
+  color: #111827;
+  line-height: 1.7;
+}
+
+.table-card.usage-report .stats {
+  margin-top: 20px;
+  margin-bottom: 24px;
+}
+
+.table-card.usage-report .stat-card {
+  background: #ffffff;
+  border: 1px solid #dbe4f5;
+  border-radius: 9px;
+  padding: 20px;
+}
+
+.table-card.usage-report .stat-card p {
+  color: #4b5563;
+  font-size: 13px;
+}
+
+.table-card.usage-report .stat-card h2 {
+  color: #111827;
+  font-size: 28px;
+  margin-top: 12px;
+  overflow-wrap: anywhere;
+}
+
+.table-card.usage-report ul {
+  padding: 16px 16px 16px 38px;
+  background: #f8faff;
+  border: 1px solid #e0e7f5;
+  border-radius: 8px;
+  color: #111827;
+}
+
+.table-card.usage-report .action-button {
+  margin-top: 18px;
+}
+
+@media (max-width: 600px) {
+  .table-card.usage-report {
+    padding: 16px;
+  }
+
+  .table-card.usage-report .stat-card h2 {
+    font-size: 24px;
+  }
+}
+
+
+/* Usage Report - complete inner styling */
+
+.table-card.usage-report {
+  margin-top: 24px;
+  padding: 26px;
+  border: 1px solid #dbe4f5;
+  border-top: 4px solid #3157d5;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #111827;
+}
+
+.table-card.usage-report > h2 {
+  color: #1e3a8a;
+  font-size: 21px;
+  margin: 0 0 24px;
+  overflow-wrap: anywhere;
+}
+
+.table-card.usage-report .stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.table-card.usage-report .stat-card {
+  padding: 20px;
+  background: #f8faff;
+  border: 1px solid #dbe4f5;
+  border-radius: 9px;
+  min-width: 0;
+}
+
+.table-card.usage-report .stat-card p {
+  color: #4b5563;
+  font-size: 13px;
+  margin: 0;
+}
+
+.table-card.usage-report .stat-card h2 {
+  color: #111827;
+  font-size: 25px;
+  margin: 12px 0 0;
+  overflow-wrap: anywhere;
+}
+
+.table-card.usage-report > p {
+  padding: 12px 14px;
+  margin: 10px 0;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 7px;
+  color: #111827;
+  line-height: 1.6;
+}
+
+.table-card.usage-report > p strong {
+  color: #374151;
+}
+
+.table-card.usage-report > h3 {
+  color: #1f2937;
+  font-size: 16px;
+  margin: 26px 0 12px;
+}
+
+.table-card.usage-report ul {
+  list-style: disc;
+  margin: 0;
+  padding: 16px 16px 16px 38px;
+  background: #f8faff;
+  border: 1px solid #dbe4f5;
+  border-radius: 8px;
+  color: #111827;
+}
+
+.table-card.usage-report li {
+  padding: 6px 0;
+  color: #111827;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.table-card.usage-report > p:last-of-type {
+  overflow-wrap: anywhere;
+}
+
+.table-card.usage-report .action-button {
+  margin-top: 22px;
+}
+
+@media (max-width: 750px) {
+  .table-card.usage-report .stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .table-card.usage-report {
+    padding: 16px;
+  }
+
+  .table-card.usage-report .stat-card h2 {
+    font-size: 22px;
+  }
+}
+
