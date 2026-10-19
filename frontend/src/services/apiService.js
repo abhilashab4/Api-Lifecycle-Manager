@@ -1,9 +1,11 @@
-
-
 import { getErrorMessage } from "../utils/apiUtils";
 
-const API_URL = "http://localhost:8080/api/registry";
-const AUTH_HEADER = "Basic " + btoa("admin:AdminDemo123!");
+const BASE_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:8080";
+
+const API_URL = `${BASE_URL}/api/registry`;
+const AUTH_HEADER =
+  "Basic " + btoa("admin:AdminDemo123!");
 
 async function handleResponse(response) {
   if (!response.ok) {
@@ -19,9 +21,7 @@ async function handleResponse(response) {
 
 export async function fetchApis() {
   const response = await fetch(API_URL, {
-    headers: {
-      Authorization: AUTH_HEADER,
-    },
+    headers: { Authorization: AUTH_HEADER },
   });
 
   return handleResponse(response);
@@ -54,10 +54,7 @@ export async function deprecateApiRequest(
         Authorization: AUTH_HEADER,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        sunsetDate,
-        replacementVersion,
-      }),
+      body: JSON.stringify({ sunsetDate, replacementVersion }),
     }
   );
 
@@ -69,9 +66,7 @@ export async function retireApiRequest(apiName, version) {
     `${API_URL}/${encodeURIComponent(apiName)}/${encodeURIComponent(version)}/retire`,
     {
       method: "PUT",
-      headers: {
-        Authorization: AUTH_HEADER,
-      },
+      headers: { Authorization: AUTH_HEADER },
     }
   );
 
@@ -82,21 +77,15 @@ export async function fetchApiUsage(apiName, version) {
   const response = await fetch(
     `${API_URL}/${encodeURIComponent(apiName)}/${encodeURIComponent(version)}/usage`,
     {
-      headers: {
-        Authorization: AUTH_HEADER,
-      },
+      headers: { Authorization: AUTH_HEADER },
     }
   );
 
   return handleResponse(response);
 }
 
-
-
-
-
 export async function registerConsumer(name) {
-  const response = await fetch("http://localhost:8080/api/consumers", {
+  const response = await fetch(`${BASE_URL}/api/consumers`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -108,18 +97,18 @@ export async function registerConsumer(name) {
   return handleResponse(response);
 }
 
-export async function grantConsumerAccess(consumerId, apiName, apiVersion) {
-  const response = await fetch("http://localhost:8080/api/consumer-access", {
+export async function grantConsumerAccess(
+  consumerId,
+  apiName,
+  apiVersion
+) {
+  const response = await fetch(`${BASE_URL}/api/consumer-access`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: AUTH_HEADER,
     },
-    body: JSON.stringify({
-      consumerId,
-      apiName,
-      apiVersion,
-    }),
+    body: JSON.stringify({ consumerId, apiName, apiVersion }),
   });
 
   return handleResponse(response);
@@ -127,27 +116,21 @@ export async function grantConsumerAccess(consumerId, apiName, apiVersion) {
 
 export async function fetchConsumerAccess(consumerId) {
   const response = await fetch(
-    `http://localhost:8080/api/consumer-access/${consumerId}`,
+    `${BASE_URL}/api/consumer-access/${consumerId}`,
     {
-      headers: {
-        Authorization: AUTH_HEADER,
-      },
+      headers: { Authorization: AUTH_HEADER },
     }
   );
 
   return handleResponse(response);
 }
 
-
-
 export async function testRuntimeApi(apiName, version, apiKey) {
   const response = await fetch(
-    `http://localhost:8080/runtime/${encodeURIComponent(apiName)}/${encodeURIComponent(version)}`,
+    `${BASE_URL}/runtime/${encodeURIComponent(apiName)}/${encodeURIComponent(version)}`,
     {
       method: "GET",
-      headers: {
-        "X-API-Key": apiKey,
-      },
+      headers: { "X-API-Key": apiKey },
     }
   );
 
