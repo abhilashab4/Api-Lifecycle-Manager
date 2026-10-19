@@ -87,7 +87,7 @@ public class SecurityConfig {
 
         config.setAllowedOrigins(List.of(
                 "http://localhost:5173",
-                "https://api-lifecycle-manager.vercel.app/"
+                "https://api-lifecycle-manager.vercel.app"
         ));
 
         config.setAllowedMethods(
